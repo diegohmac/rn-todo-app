@@ -9,5 +9,7 @@ export const styles = StyleSheet.create({
         height: 54,
         borderRadius: 8,
         padding: 16,
+        fontFamily: theme.typography.regularText,
+        fontSize: theme.typography.large,
     },
   });

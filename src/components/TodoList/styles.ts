@@ -46,9 +46,14 @@ export const styles = StyleSheet.create({
         color: theme.colors.gray200,
     },
     emptyStateContainer: {
-
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingVertical: 48,
+        paddingHorizontal: 20,
+        gap: 16,
     },
     emptyStateText: {
+        textAlign: 'center',
         fontSize: theme.typography.medium,
         fontFamily: theme.typography.boldText,
         color: theme.colors.gray300,

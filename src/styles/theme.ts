@@ -17,7 +17,7 @@
         small: 12,
         medium: 14,
         large: 16,
-        regularText: 'Inter-Regular',
+        regularText: 'Inter',
         boldText: 'Inter-Bold',
     }
  }

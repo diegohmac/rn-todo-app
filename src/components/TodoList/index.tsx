@@ -1,24 +1,24 @@
-import { View, Text, FlatList } from 'react-native'
+import { View, Text, FlatList, Alert } from 'react-native'
 import React, { useState } from 'react'
 import { styles } from './styles'
 import Input from '../Input'
 import Button from '../Button'
 import { MaterialIcons } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 import { theme } from '../../styles/theme'
 import Task, { TaskType } from '../Task'
 
 export default function TodoList() {
-    const [tasks, setTasks] = useState<TaskType[]>([
-        {
-            text: 'Todo 1',
-            isCompleted: false,
-        }
-    ]);
-    
+    const [tasks, setTasks] = useState<TaskType[]>([]);
+
     const [newTask, setNewTask] = useState('')
 
-    const handleAddTask = () => {
-        console.log('Add task')
+    const handleAddTask = (text: string) => {
+        setNewTask('')
+        if (tasks.some(task => task.text === text)) {
+            return Alert.alert("Task already exists.", "You can't create duplicated tasks.");
+        }
+        setTasks(prev => [...prev, { text, isCompleted: false }])
     }
 
     const handleDeleteTask = () => {
@@ -33,7 +33,7 @@ export default function TodoList() {
         <View style={styles.container}>
             <View style={styles.inputContainer}>
                 <Input value={newTask} onChange={setNewTask} placeholder='Add a new task' />
-                <Button onPress={handleAddTask}>
+                <Button onPress={() => handleAddTask(newTask)}>
                     <MaterialIcons name="add-circle-outline" size={24} color={theme.colors.gray100} />
                 </Button>
             </View>
@@ -60,13 +60,15 @@ export default function TodoList() {
                 )}
                 ListEmptyComponent={() =>
                     <View style={styles.emptyStateContainer}>
-                        <MaterialIcons name="add-circle-outline" size={24} color={theme.colors.gray100} />
-                        <Text style={[styles.emptyStateText, { fontFamily: theme.typography.boldText }]}>
-                            You don't have any tasks.
-                        </Text>
-                        <Text style={[styles.emptyStateText, { fontFamily: theme.typography.regularText }]}>
-                            Create your tasks and get organized.
-                        </Text>
+                        <Feather name="clipboard" size={56} color={theme.colors.gray300} />
+                        <View>
+                            <Text style={[styles.emptyStateText, { fontFamily: theme.typography.boldText }]}>
+                                You don't have any tasks.
+                            </Text>
+                            <Text style={[styles.emptyStateText, { fontFamily: theme.typography.regularText }]}>
+                                Create your tasks and get organized.
+                            </Text>
+                        </View>
                     </View>
                 }
                 showsVerticalScrollIndicator={false}
