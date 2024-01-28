@@ -21,13 +21,25 @@ export default function TodoList() {
         setTasks(prev => [...prev, { text, isCompleted: false }])
     }
 
-    const handleDeleteTask = () => {
-        console.log('Delete task')
+    const handleDeleteTask = (text: string) => {
+        Alert.alert("Remove task", `Are you sure you want to remove "${text}" from the list?`, [
+            {
+                text: "Cancel",
+                style: "cancel"
+            },
+            {
+                text: "Remove",
+                onPress: () => setTasks(prev => prev.filter(task => task.text !== text)),
+                style: "destructive"
+            }
+        ]);
     }
 
     const handleCompleteTask = () => {
         console.log('Complete task')
     }
+
+    const completedTasks = tasks.filter(task => task.isCompleted).length ?? 0;
 
     return (
         <View style={styles.container}>
@@ -41,13 +53,13 @@ export default function TodoList() {
                 <View style={styles.status}>
                     <Text style={[styles.statusText, { color: theme.colors.blue }]}>Created</Text>
                     <View style={styles.statusNumberContainer}>
-                        <Text style={styles.statusNumber}>21</Text>
+                        <Text style={styles.statusNumber}>{tasks.length}</Text>
                     </View>
                 </View>
                 <View style={styles.status}>
                     <Text style={[styles.statusText, { color: theme.colors.purple }]}>Finished</Text>
                     <View style={styles.statusNumberContainer}>
-                        <Text style={styles.statusNumber}>5</Text>
+                        <Text style={styles.statusNumber}>{completedTasks}</Text>
                     </View>
                 </View>
             </View>
