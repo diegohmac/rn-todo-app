@@ -14,14 +14,14 @@ export type TaskType = {
 
 type Props = {
     task: TaskType;
-    handleComplete: (newValue: boolean, task: TaskType) => void;
+    handleComplete: (newValue: boolean, text: string) => void;
     handleDelete: (text: string ) => void;
 }
 
 export default function Task({ task, handleComplete, handleDelete }: Props) {
     return (
         <View style={[styles.container, { borderColor: task.isCompleted ? theme.colors.gray500 : theme.colors.gray400 }]}>
-            <Checkbox value={task.isCompleted} onChange={(newValue) => handleComplete(newValue, task)} />
+            <Checkbox value={task.isCompleted} onChange={(newValue) => handleComplete(newValue, task.text)} />
             <Text style={[
                 styles.text,
                 task.isCompleted && {

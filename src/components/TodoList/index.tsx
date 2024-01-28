@@ -35,8 +35,13 @@ export default function TodoList() {
         ]);
     }
 
-    const handleCompleteTask = () => {
-        console.log('Complete task')
+    const handleCompleteTask = (newValue: boolean, text: string) => {
+        setTasks(prev => prev.map(task => {
+            if (task.text === text) {
+                return { ...task, isCompleted: newValue }
+            }
+            return task;
+        }))
     }
 
     const completedTasks = tasks.filter(task => task.isCompleted).length ?? 0;
