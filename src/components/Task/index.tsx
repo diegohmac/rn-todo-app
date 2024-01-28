@@ -7,28 +7,32 @@ import Checkbox from '../Checkbox';
 import Button from '../Button';
 import { MaterialIcons } from '@expo/vector-icons';
 
-type Props = {
+export type TaskType = {
     text: string;
-    handleDelete: (text: string) => void;
+    isCompleted: boolean;
 }
 
-export default function Task({ text, handleDelete }: Props) {
-    const [isChecked, setIsChecked] = useState(false);
+type Props = {
+    task: TaskType;
+    handleComplete: (newValue: boolean, task: TaskType) => void;
+    handleDelete: (text: string ) => void;
+}
 
+export default function Task({ task, handleComplete, handleDelete }: Props) {
     return (
-        <View style={[styles.container, { borderColor: isChecked ? theme.colors.gray500 : theme.colors.gray400 }]}>
-            <Checkbox value={isChecked} onChange={setIsChecked} />
+        <View style={[styles.container, { borderColor: task.isCompleted ? theme.colors.gray500 : theme.colors.gray400 }]}>
+            <Checkbox value={task.isCompleted} onChange={(newValue) => handleComplete(newValue, task)} />
             <Text style={[
                 styles.text,
-                isChecked && {
+                task.isCompleted && {
                     textDecorationLine: 'line-through',
                     textDecorationStyle: 'solid',
                     color: theme.colors.gray300,
                 }
             ]}>
-                {text}
+                {task.text}
             </Text>
-            <Button onPress={() => handleDelete(text)} type='text'>
+            <Button onPress={() => handleDelete(task.text)} type='text'>
                 <MaterialIcons name="delete-outline" size={24} color={theme.colors.danger} />
             </Button>
         </View>

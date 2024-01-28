@@ -11,6 +11,7 @@ export const styles = StyleSheet.create({
         padding: 12,
         borderRadius: 8,
         borderWidth: 1,
+        marginBottom: 8,  
     },
     text: {
         flex: 1,
