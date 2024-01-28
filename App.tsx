@@ -1,10 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { theme } from './src/styles/theme';
 import { useFonts } from 'expo-font';
 
 export default function App() {
-
   const [loaded] = useFonts({
     Inter: require('./assets/fonts/Inter-Regular.ttf'),
     'Inter-Bold': require('./assets/fonts/Inter-Bold.ttf'),
@@ -16,16 +15,16 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text style={{ color: theme.colors.blueDark, fontFamily: "Inter", fontSize: theme.typography.large }}>HELLO </Text>
-      <StatusBar style="auto" />
+      <StatusBar translucent backgroundColor={theme.colors.gray700} style='light' />
     </View>
-  );
+  ); 
 }
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: theme.colors.gray700,
     flex: 1,
-    backgroundColor: '#fff',
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
   },
